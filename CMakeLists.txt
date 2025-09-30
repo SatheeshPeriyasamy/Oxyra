@@ -49,7 +49,7 @@ if (IOS)
     INCLUDE(CmakeLists_IOS.txt)
 endif()
 
-project(monero)
+project(OxyraX)
 
 option (USE_CCACHE "Use ccache if a usable instance is found" ON)
 if (USE_CCACHE)
@@ -1199,3 +1199,22 @@ if (iwyu_tool_path AND PYTHONINTERP_FOUND)
     VERBATIM
   )
 endif()
+
+add_executable(genesis_generator src/genesis_generator.cpp)
+target_link_libraries(genesis_generator 
+    cryptonote_core
+    cryptonote_basic
+    common
+    cncrypto
+    ringct
+)
+
+
+add_executable(fee_burning_test src/fee_burning_test.cpp)
+target_link_libraries(fee_burning_test 
+    cryptonote_core
+    cryptonote_basic
+    common
+    cncrypto
+    ringct
+)

@@ -102,7 +102,12 @@ namespace cryptonote
     LOG_PRINT_L1("Creating block template: reward " << block_reward <<
       ", fee " << fee);
 #endif
-    block_reward += fee;
+    if (block_reward == 0) {
+      tx.version = 2;
+      tx.vin.push_back(in);
+      tx.invalidate_hashes();
+      return true;
+    }
 
     // from hard fork 2, we cut out the low significant digits. This makes the tx smaller, and
     // keeps the paid amount almost the same. The unpaid remainder gets pushed back to the
