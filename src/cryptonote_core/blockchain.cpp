@@ -4634,37 +4634,7 @@ bool Blockchain::add_new_block(const block& bl, block_verification_context& bvc,
 //      caller decide course of action.
 void Blockchain::check_against_checkpoints(const checkpoints& points, bool enforce)
 {
-  const auto& pts = points.get_points();
-  bool stop_batch;
-
-  CRITICAL_REGION_LOCAL(m_blockchain_lock);
-  stop_batch = m_db->batch_start();
-  const uint64_t blockchain_height = m_db->height();
-  for (const auto& pt : pts)
-  {
-    // if the checkpoint is for a block we don't have yet, move on
-    if (pt.first >= blockchain_height)
-    {
-      continue;
-    }
-
-    if (!points.check_block(pt.first, m_db->get_block_hash_from_height(pt.first)))
-    {
-      // if asked to enforce checkpoints, roll back to a couple of blocks before the checkpoint
-      if (enforce)
-      {
-        LOG_ERROR("Local blockchain failed to pass a checkpoint, rolling back!");
-        std::list<block> empty;
-        rollback_blockchain_switching(empty, pt.first - 2);
-      }
-      else
-      {
-        LOG_ERROR("WARNING: local blockchain failed to pass a MoneroPulse checkpoint, and you could be on a fork. You should either sync up from scratch, OR download a fresh blockchain bootstrap, OR enable checkpoint enforcing with the --enforce-dns-checkpointing command-line option");
-      }
-    }
-  }
-  if (stop_batch)
-    m_db->batch_stop();
+  return;
 }
 //------------------------------------------------------------------
 // returns false if any of the checkpoints loading returns false.
@@ -4672,36 +4642,6 @@ void Blockchain::check_against_checkpoints(const checkpoints& points, bool enfor
 // with an existing checkpoint.
 bool Blockchain::update_checkpoints(const std::string& file_path, bool check_dns)
 {
-  if (!m_checkpoints.load_checkpoints_from_json(file_path))
-  {
-      return false;
-  }
-
-  // if we're checking both dns and json, load checkpoints from dns.
-  // if we're not hard-enforcing dns checkpoints, handle accordingly
-  if (m_enforce_dns_checkpoints && check_dns && !m_offline)
-  {
-    if (!m_checkpoints.load_checkpoints_from_dns())
-    {
-      return false;
-    }
-  }
-  else if (check_dns && !m_offline)
-  {
-    checkpoints dns_points;
-    dns_points.load_checkpoints_from_dns();
-    if (m_checkpoints.check_for_conflicts(dns_points))
-    {
-      check_against_checkpoints(dns_points, false);
-    }
-    else
-    {
-      MERROR("One or more checkpoints fetched from DNS conflicted with existing checkpoints!");
-    }
-  }
-
-  check_against_checkpoints(m_checkpoints, true);
-
   return true;
 }
 //------------------------------------------------------------------
