@@ -117,6 +117,8 @@ namespace cryptonote
      * @tx_relay how the transaction was received
      * @param tx_weight the transaction's weight
      */
+
+    tx_memory_pool(Blockchain& bchs);
     bool add_tx(transaction &tx, const crypto::hash &id, const cryptonote::blobdata &blob,
       size_t tx_weight, tx_verification_context& tvc, relay_method tx_relay, bool relayed,
       uint8_t version, uint8_t nic_verified_hf_version = 0);
@@ -509,7 +511,7 @@ namespace cryptonote
      *
      * @param bchs a Blockchain class instance, for getting chain info
      */
-    tx_memory_pool(Blockchain& bchs);
+    // tx_memory_pool(Blockchain& bchs);
 
     /**
      * @brief insert key images into m_spent_key_images

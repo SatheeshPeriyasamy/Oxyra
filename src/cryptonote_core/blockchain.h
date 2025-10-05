@@ -114,6 +114,7 @@ namespace cryptonote
       uint64_t already_generated_coins; //!< the total coins minted after that block
     };
 
+    Blockchain(tx_memory_pool& tx_pool);
     /**
      * @brief Blockchain destructor
      */
@@ -1257,7 +1258,7 @@ namespace cryptonote
      *
      * @param tx_pool a reference to the transaction pool to be kept by the Blockchain
      */
-    Blockchain(tx_memory_pool& tx_pool);
+    // Blockchain(tx_memory_pool& tx_pool);
 
     /**
      * @brief collects the keys for all outputs being "spent" as an input
