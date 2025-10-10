@@ -2,7 +2,7 @@
 
 ## Achievements
 
-- Feather GUI wallet installed and running.
+- Feather GUI wallet installed and running......
 - Local Monero daemon (`monerod`) running on `127.0.0.1:18081`.
 - Created a new wallet: `47VoCZPtUgnNF4EeapDxxQNvZPDNDR4qBDpjEf92474PVk7BfH5Dkqv4zFXQ188F4FLtv5wCn8Yuq2dWEmqFbZp14DCFxYR`.
 - Wallet successfully connected to the local node.
