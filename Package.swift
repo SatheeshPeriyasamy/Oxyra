@@ -15,8 +15,8 @@ let package = Package(
             name: "OxyraCore",
             targets: ["OxyraCore"]),
         .library(
-            name: "OxyraDevelopment",
-            targets: ["OxyraDevelopment"]),
+            name: "Unstoppable",
+            targets: ["Unstoppable"]),
     ],
     dependencies: [
         // Add any external dependencies here if needed
@@ -49,25 +49,25 @@ let package = Package(
                 .linkedLibrary("sqlite3"),
             ]
         ),
-        // Development target
+        // Unstoppable target
         .target(
-            name: "OxyraDevelopment",
+            name: "Unstoppable",
             dependencies: ["OxyraCore"],
             path: "Sources/Oxyra",
             publicHeadersPath: "include",
             cSettings: [
                 .headerSearchPath("include"),
                 .define("IOS", to: "1"),
-                .define("CMAKE_BUILD_TYPE", to: "Debug"),
-                .define("DEBUG", to: "1"),
-                .define("DEVELOPMENT", to: "1"),
+                .define("CMAKE_BUILD_TYPE", to: "Release"),
+                .define("NDEBUG", to: "1"),
+                .define("UNSTOPPABLE", to: "1"),
             ],
             cxxSettings: [
                 .headerSearchPath("include"),
                 .define("IOS", to: "1"),
-                .define("CMAKE_BUILD_TYPE", to: "Debug"),
-                .define("DEBUG", to: "1"),
-                .define("DEVELOPMENT", to: "1"),
+                .define("CMAKE_BUILD_TYPE", to: "Release"),
+                .define("NDEBUG", to: "1"),
+                .define("UNSTOPPABLE", to: "1"),
                 .define("__STDC_FORMAT_MACROS", to: "1"),
             ],
             linkerSettings: [
