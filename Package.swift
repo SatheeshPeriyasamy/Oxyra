@@ -19,10 +19,10 @@ let package = Package(
             targets: ["Unstoppable"]),
     ],
     dependencies: [
-        // Add any external dependencies here if needed
+        // No external dependencies - Oxyra is self-contained
     ],
     targets: [
-        // Production target
+        // Main Oxyra Swift wrapper
         .target(
             name: "Oxyra",
             dependencies: ["OxyraCore"],
@@ -33,14 +33,12 @@ let package = Package(
                 .define("IOS", to: "1"),
                 .define("CMAKE_BUILD_TYPE", to: "Release"),
                 .define("NDEBUG", to: "1"),
-                .define("PRODUCTION", to: "1"),
             ],
             cxxSettings: [
                 .headerSearchPath("include"),
                 .define("IOS", to: "1"),
                 .define("CMAKE_BUILD_TYPE", to: "Release"),
                 .define("NDEBUG", to: "1"),
-                .define("PRODUCTION", to: "1"),
                 .define("__STDC_FORMAT_MACROS", to: "1"),
             ],
             linkerSettings: [
@@ -49,7 +47,7 @@ let package = Package(
                 .linkedLibrary("sqlite3"),
             ]
         ),
-        // Unstoppable target
+        // Unstoppable target - same as Oxyra but with Unstoppable branding
         .target(
             name: "Unstoppable",
             dependencies: ["OxyraCore"],
@@ -76,34 +74,33 @@ let package = Package(
                 .linkedLibrary("sqlite3"),
             ]
         ),
-        // Core C++ library
+        // Core C++ bridge library
         .target(
             name: "OxyraCore",
             dependencies: [],
             path: "Sources/OxyraCore",
             publicHeadersPath: "include",
+            sources: ["oxyra_bridge.cpp"],
             cSettings: [
                 .headerSearchPath("include"),
-                .headerSearchPath("src"),
                 .define("IOS", to: "1"),
                 .define("CMAKE_BUILD_TYPE", to: "Release"),
                 .define("NDEBUG", to: "1"),
             ],
             cxxSettings: [
                 .headerSearchPath("include"),
-                .headerSearchPath("src"),
                 .headerSearchPath("../../src"),
+                .headerSearchPath("../../src/daemon"),
+                .headerSearchPath("../../src/cryptonote_core"),
                 .headerSearchPath("../../src/cryptonote_basic"),
-                .headerSearchPath("../../src/common"),
                 .headerSearchPath("../../src/crypto"),
+                .headerSearchPath("../../src/common"),
                 .headerSearchPath("../../src/serialization"),
                 .headerSearchPath("../../src/wallet"),
                 .headerSearchPath("../../src/rpc"),
                 .headerSearchPath("../../src/net"),
                 .headerSearchPath("../../src/p2p"),
-                .headerSearchPath("../../src/cryptonote_core"),
                 .headerSearchPath("../../src/cryptonote_protocol"),
-                .headerSearchPath("../../src/daemon"),
                 .headerSearchPath("../../src/device"),
                 .headerSearchPath("../../src/device_trezor"),
                 .headerSearchPath("../../src/ringct"),
