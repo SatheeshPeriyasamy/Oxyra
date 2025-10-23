@@ -1,0 +1,7 @@
+module OxyraCore {
+    header "oxyra_bridge.h"
+    link "c++"
+    link "z"
+    link "sqlite3"
+    export *
+}
