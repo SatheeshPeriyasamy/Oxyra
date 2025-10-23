@@ -47,11 +47,11 @@ let package = Package(
                 .linkedLibrary("sqlite3"),
             ]
         ),
-        // Unstoppable target - same as Oxyra but with Unstoppable branding
+        // Unstoppable target - re-exports Oxyra with Unstoppable branding
         .target(
             name: "Unstoppable",
-            dependencies: ["OxyraCore"],
-            path: "Sources/Oxyra",
+            dependencies: ["Oxyra", "OxyraCore"],
+            path: "Sources/Unstoppable",
             publicHeadersPath: "include",
             cSettings: [
                 .headerSearchPath("include"),
@@ -79,8 +79,8 @@ let package = Package(
             name: "OxyraCore",
             dependencies: [],
             path: "Sources/OxyraCore",
-            publicHeadersPath: "include",
             sources: ["oxyra_bridge.cpp"],
+            publicHeadersPath: "include",
             cSettings: [
                 .headerSearchPath("include"),
                 .define("IOS", to: "1"),
@@ -147,7 +147,8 @@ let package = Package(
         .testTarget(
             name: "OxyraTests",
             dependencies: ["Oxyra", "OxyraCore"],
-            path: "Tests"
+            path: "Tests",
+            sources: ["OxyraTests.swift"]
         ),
     ],
     cLanguageStandard: .c11,
