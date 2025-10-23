@@ -667,7 +667,10 @@ namespace cryptonote
     bl.major_version = CURRENT_BLOCK_MAJOR_VERSION;
     bl.minor_version = CURRENT_BLOCK_MINOR_VERSION;
     // bl.timestamp = 0; Changing this line to fix 1970 issue trial
-    bl.timestamp = 1761180475;
+    // bl.timestamp = 1761180475;
+
+    bl.timestamp = time(NULL);
+
     bl.nonce = nonce;
     miner::find_nonce_for_given_block([](const cryptonote::block &b, uint64_t height, const crypto::hash *seed_hash, unsigned int threads, crypto::hash &hash){
       return cryptonote::get_block_longhash(NULL, b, hash, height, seed_hash, threads);
