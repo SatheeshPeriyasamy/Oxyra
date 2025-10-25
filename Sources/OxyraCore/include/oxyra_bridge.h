@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 // Daemon options structure
 typedef struct {
@@ -55,3 +56,5 @@ char* oxyra_bytes_to_words(const char* bytes, size_t length);
 #endif
 
 #endif // OXYRA_BRIDGE_H
+
+
