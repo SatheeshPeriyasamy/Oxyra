@@ -8,6 +8,7 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include "oxyra_config.h"
 
 // Daemon options structure
 typedef struct {

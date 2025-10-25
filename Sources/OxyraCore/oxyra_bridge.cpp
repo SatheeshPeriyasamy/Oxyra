@@ -19,6 +19,11 @@ void oxyra_initialize(void) {
     if (!g_initialized) {
         // Initialize Oxyra core components
         // TODO: Add proper initialization when Oxyra core is integrated
+        
+        #if OXYRA_LOG_ENABLED
+        // Initialize logging for debug builds
+        #endif
+        
         g_initialized = true;
     }
 }
