@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/master.swiftdeps"
+  },
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.d",
+    "object": "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swiftdeps"
+  }
+}

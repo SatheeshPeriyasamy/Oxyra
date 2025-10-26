@@ -20,9 +20,8 @@ void oxyra_initialize(void) {
         // Initialize Oxyra core components
         // TODO: Add proper initialization when Oxyra core is integrated
         
-        #if OXYRA_LOG_ENABLED
         // Initialize logging for debug builds
-        #endif
+        // TODO: Add proper logging when needed
         
         g_initialized = true;
     }

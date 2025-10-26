@@ -1,0 +1,129 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "Oxyra-x86_64-apple-macosx14.0-debug.module": ["<Oxyra-x86_64-apple-macosx14.0-debug.module>"]
+  "OxyraCore-x86_64-apple-macosx14.0-debug.module": ["<OxyraCore-x86_64-apple-macosx14.0-debug.module>"]
+  "OxyraPackageTests-x86_64-apple-macosx14.0-debug.module": ["<OxyraPackageTests-x86_64-apple-macosx14.0-debug.module>"]
+  "OxyraPackageTests-x86_64-apple-macosx14.0-debug.test": ["<OxyraPackageTests-x86_64-apple-macosx14.0-debug.test>"]
+  "OxyraTests-x86_64-apple-macosx14.0-debug.module": ["<OxyraTests-x86_64-apple-macosx14.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<Oxyra-x86_64-apple-macosx14.0-debug.module>","<OxyraCore-x86_64-apple-macosx14.0-debug.module>"]
+  "test": ["<Oxyra-x86_64-apple-macosx14.0-debug.module>","<OxyraCore-x86_64-apple-macosx14.0-debug.module>","<OxyraPackageTests-x86_64-apple-macosx14.0-debug.test>","<OxyraTests-x86_64-apple-macosx14.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Tests/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/Oxyra.swift"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/sources"]
+    description: "Write auxiliary file /Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/sources"
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o":
+    tool: clang
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/oxyra_bridge.cpp"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o"]
+    description: "Compiling OxyraCore oxyra_bridge.cpp"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang","-fobjc-arc","-target","x86_64-apple-macosx10.15","-O0","-DSWIFT_PACKAGE=1","-DDEBUG=1","-fblocks","-index-store-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/index/store","-I","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-DIOS=1","-DCMAKE_BUILD_TYPE=Release","-DNDEBUG=1","-DIOS=1","-DCMAKE_BUILD_TYPE=Release","-DNDEBUG=1","-D__STDC_FORMAT_MACROS=1","-I/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-I/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-isysroot","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-fPIC","-g","-g","-MD","-MT","dependencies","-MF","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.d","-std=c++17","-c","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/oxyra_bridge.cpp","-o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o"]
+    deps: "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.d"
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.derived/runner.swift"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/sources"]
+    description: "Write auxiliary file /Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/sources"
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.derived/runner.swift":
+    tool: test-entry-point-tool
+    inputs: []
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.derived/runner.swift"]
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/OxyraTests.swift.o"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.product/Objects.LinkFileList"
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Tests/OxyraTests.swift"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/sources"]
+    description: "Write auxiliary file /Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/sources"
+
+  "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<Oxyra-x86_64-apple-macosx14.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/Oxyra.swiftmodule"]
+    outputs: ["<Oxyra-x86_64-apple-macosx14.0-debug.module>"]
+
+  "<OxyraCore-x86_64-apple-macosx14.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o"]
+    outputs: ["<OxyraCore-x86_64-apple-macosx14.0-debug.module>"]
+
+  "<OxyraPackageTests-x86_64-apple-macosx14.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraPackageTests.swiftmodule"]
+    outputs: ["<OxyraPackageTests-x86_64-apple-macosx14.0-debug.module>"]
+
+  "<OxyraPackageTests-x86_64-apple-macosx14.0-debug.test>":
+    tool: phony
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.xctest/Contents/MacOS/OxyraPackageTests"]
+    outputs: ["<OxyraPackageTests-x86_64-apple-macosx14.0-debug.test>"]
+
+  "<OxyraTests-x86_64-apple-macosx14.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/OxyraTests.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraTests.swiftmodule"]
+    outputs: ["<OxyraTests-x86_64-apple-macosx14.0-debug.module>"]
+
+  "C.Oxyra-x86_64-apple-macosx14.0-debug.module":
+    tool: shell
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/Oxyra.swift","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/sources"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/Oxyra.swiftmodule"]
+    description: "Compiling Swift Module 'Oxyra' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","Oxyra","-emit-dependencies","-emit-module","-emit-module-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/Oxyra.swiftmodule","-output-file-map","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/sources","-I","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules","-target","x86_64-apple-macosx10.15","-enable-batch-mode","-index-store-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j16","-DSWIFT_PACKAGE","-DDEBUG","-Xcc","-fmodule-map-file=/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include/module.modulemap","-Xcc","-I","-Xcc","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-module-cache-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra-Swift.h","-swift-version","5","-Xcc","-DIOS=1","-Xcc","-DCMAKE_BUILD_TYPE=Release","-Xcc","-DNDEBUG=1","-Xcc","-DIOS=1","-Xcc","-DCMAKE_BUILD_TYPE=Release","-Xcc","-DNDEBUG=1","-Xcc","-D__STDC_FORMAT_MACROS=1","-Xcc","-I/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/include","-Xcc","-I/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/include","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g"]
+
+  "C.OxyraPackageTests-x86_64-apple-macosx14.0-debug.module":
+    tool: shell
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.derived/runner.swift","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraTests.swiftmodule","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/sources"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraPackageTests.swiftmodule"]
+    description: "Compiling Swift Module 'OxyraPackageTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","OxyraPackageTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraPackageTests.swiftmodule","-output-file-map","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/sources","-I","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules","-target","x86_64-apple-macosx10.15","-enable-batch-mode","-index-store-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j16","-DSWIFT_PACKAGE","-DDEBUG","-Xcc","-fmodule-map-file=/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include/module.modulemap","-Xcc","-I","-Xcc","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-module-cache-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/OxyraPackageTests-Swift.h","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g"]
+
+  "C.OxyraPackageTests-x86_64-apple-macosx14.0-debug.test":
+    tool: shell
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.build/runner.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/OxyraTests.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.product/Objects.LinkFileList"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.xctest/Contents/MacOS/OxyraPackageTests"]
+    description: "Linking ./.build/x86_64-apple-macosx/debug/OxyraPackageTests.xctest/Contents/MacOS/OxyraPackageTests"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-lc++","-L","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug","-o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.xctest/Contents/MacOS/OxyraPackageTests","-module-name","OxyraPackageTests","-Xlinker","-no_warn_duplicate_libraries","-Xlinker","-bundle","-Xlinker","-rpath","-Xlinker","@loader_path/../../../","@/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraPackageTests.product/Objects.LinkFileList","-target","x86_64-apple-macosx13.0","-lc++","-lz","-lsqlite3","-Xlinker","-add_ast_path","-Xlinker","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/Oxyra.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraPackageTests.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraTests.swiftmodule","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.OxyraTests-x86_64-apple-macosx14.0-debug.module":
+    tool: shell
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Tests/OxyraTests.swift","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/Oxyra.swiftmodule","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraCore.build/oxyra_bridge.cpp.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/sources"]
+    outputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/OxyraTests.swift.o","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraTests.swiftmodule"]
+    description: "Compiling Swift Module 'OxyraTests' (1 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","OxyraTests","-emit-dependencies","-emit-module","-emit-module-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules/OxyraTests.swiftmodule","-output-file-map","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/OxyraTests.build/sources","-I","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Modules","-target","x86_64-apple-macosx13.0","-enable-batch-mode","-index-store-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j16","-DSWIFT_PACKAGE","-DDEBUG","-Xcc","-fmodule-map-file=/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include/module.modulemap","-Xcc","-I","-Xcc","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/include","-module-cache-path","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-swift-version","5","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/Oxyra/","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Sources/OxyraCore/","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Tests/","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Package.swift","/Users/apple/Avaneesh_work/MultiWallet/Oxyra/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

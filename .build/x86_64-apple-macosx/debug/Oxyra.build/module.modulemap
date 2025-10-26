@@ -1,0 +1,4 @@
+module Oxyra {
+    header "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/x86_64-apple-macosx/debug/Oxyra.build/Oxyra-Swift.h"
+    requires objc
+}

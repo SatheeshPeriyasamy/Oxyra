@@ -95,3 +95,5 @@ EOF
 
 echo "Build completed successfully!"
 echo "Framework created at: $FRAMEWORK_DIR/$FRAMEWORK_NAME.framework"
+
+
