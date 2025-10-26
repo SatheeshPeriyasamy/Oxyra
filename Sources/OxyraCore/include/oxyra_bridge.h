@@ -9,11 +9,8 @@ extern "C" {
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-
-// Ensure size_t is available
-#ifndef size_t
-typedef unsigned long size_t;
-#endif
+#include <string.h>
+#include "oxyra_ios_compat.h"
 
 // Daemon options structure
 typedef struct {
@@ -55,7 +52,7 @@ bool oxyra_key_valid(const char* secret_key, const char* public_key, bool testne
 // Utility functions
 char* oxyra_amount_to_string(uint64_t amount);
 uint64_t oxyra_string_to_amount(const char* amount_str);
-char* oxyra_bytes_to_words(const char* bytes, size_t length);
+char* oxyra_bytes_to_words(const char* bytes, unsigned long length);
 
 #ifdef __cplusplus
 }

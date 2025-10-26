@@ -1,10 +1,13 @@
 #include "oxyra_bridge.h"
+#include "oxyra_ios_compat.h"
 #include <cstring>
 #include <cstddef>
 #include <cstdlib>
 #include <cstdio>
 #include <exception>
 #include <string.h>
+#include <cstdint>
+#include <cstdbool>
 #include <memory>
 #include <string>
 
@@ -138,7 +141,7 @@ uint64_t oxyra_string_to_amount(const char* amount_str) {
     return std::strtoull(amount_str, nullptr, 10);
 }
 
-char* oxyra_bytes_to_words(const char* bytes, size_t length) {
+char* oxyra_bytes_to_words(const char* bytes, unsigned long length) {
     // TODO: Implement bytes to words conversion
     return nullptr;
 }
