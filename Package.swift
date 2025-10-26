@@ -63,6 +63,11 @@ let package = Package(
                 .define("CMAKE_BUILD_TYPE", to: "Release"),
                 .define("NDEBUG", to: "1"),
                 .define("__STDC_FORMAT_MACROS", to: "1"),
+                .define("_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION", to: "1"),
+                .define("_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR", to: "1"),
+                .define("_LIBCPP_VERSION", to: "14000"),
+                .define("__APPLE__", to: "1"),
+                .define("TARGET_OS_IPHONE", to: "1"),
             ],
             linkerSettings: [
                 .linkedLibrary("c++"),

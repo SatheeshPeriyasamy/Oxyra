@@ -25,3 +25,4 @@
 #define OXYRA_LOG_ENABLED OXYRA_DEBUG
 
 #endif // OXYRA_CONFIG_H
+
