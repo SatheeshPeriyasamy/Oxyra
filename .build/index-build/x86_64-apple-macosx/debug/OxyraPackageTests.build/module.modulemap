@@ -1,0 +1,4 @@
+module OxyraPackageTests {
+    header "/Users/apple/Avaneesh_work/MultiWallet/Oxyra/.build/index-build/x86_64-apple-macosx/debug/OxyraPackageTests.build/OxyraPackageTests-Swift.h"
+    requires objc
+}

@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <exception>
 #include <string.h>
+#include <memory>
+#include <string>
 
 // For now, we'll create minimal stubs for the Oxyra functionality
 // This allows the package to compile while we work on the full implementation
@@ -19,6 +21,10 @@ void oxyra_initialize(void) {
     if (!g_initialized) {
         // Initialize Oxyra core components
         // TODO: Add proper initialization when Oxyra core is integrated
+        
+        // Initialize logging for debug builds
+        // TODO: Add proper logging when needed
+        
         g_initialized = true;
     }
 }

@@ -1,114 +1,134 @@
 import Foundation
 import OxyraCore
 
-/// Main Oxyra Swift wrapper for iOS
-@objc public class Oxyra: NSObject {
+/// Swift wrapper for Oxyra functionality
+/// This provides a clean Swift interface to the C++ Oxyra bridge
+public class Oxyra {
     
-    /// Initialize Oxyra with configuration
-    /// - Parameter config: Configuration object for Oxyra
-    public init(config: OxyraConfig) {
-        super.init()
-        // Initialize the core C++ library
-        oxyra_initialize()
+    /// Shared instance for easy access
+    public static let shared = Oxyra()
+    
+    private var isInitialized = false
+    
+    private init() {
+        // Private initializer for singleton
     }
     
-    deinit {
+    /// Initialize Oxyra
+    /// Call this before using any other Oxyra functions
+    public func initialize() {
+        guard !isInitialized else { return }
+        
+        oxyra_initialize()
+        isInitialized = true
+    }
+    
+    /// Cleanup Oxyra resources
+    public func cleanup() {
+        guard isInitialized else { return }
+        
         oxyra_cleanup()
+        isInitialized = false
     }
     
     /// Start the Oxyra daemon
-    /// - Parameter options: Daemon options
-    /// - Returns: True if started successfully
-    @objc public func startDaemon(options: OxyraDaemonOptions) -> Bool {
-        return oxyra_start_daemon(options.toCOptions())
+    /// - Parameter options: Configuration options for the daemon
+    /// - Returns: True if daemon started successfully
+    public func startDaemon(options: DaemonOptions) -> Bool {
+        guard isInitialized else { return false }
+        
+        var cOptions = oxyra_daemon_options_t()
+        cOptions.rpc_bind_ip = strdup(options.rpcBindIP)
+        cOptions.rpc_bind_port = options.rpcBindPort
+        cOptions.p2p_bind_ip = strdup(options.p2pBindIP)
+        cOptions.p2p_bind_port = options.p2pBindPort
+        cOptions.restricted_rpc = options.restrictedRPC
+        
+        let result = oxyra_start_daemon(cOptions)
+        
+        // Clean up allocated strings
+        free(cOptions.rpc_bind_ip)
+        free(cOptions.p2p_bind_ip)
+        
+        return result
     }
     
     /// Stop the Oxyra daemon
-    @objc public func stopDaemon() {
+    public func stopDaemon() {
         oxyra_stop_daemon()
     }
     
     /// Check if daemon is running
     /// - Returns: True if daemon is running
-    @objc public func isDaemonRunning() -> Bool {
+    public func isDaemonRunning() -> Bool {
         return oxyra_is_daemon_running()
     }
     
     /// Get daemon status
     /// - Returns: Current daemon status
-    @objc public func getDaemonStatus() -> OxyraDaemonStatus {
-        let status = oxyra_get_daemon_status()
-        return OxyraDaemonStatus.fromCStatus(status)
+    public func getDaemonStatus() -> DaemonStatus {
+        let cStatus = oxyra_get_daemon_status()
+        return DaemonStatus(
+            isRunning: cStatus.is_running,
+            isSynchronized: cStatus.is_synchronized,
+            height: cStatus.height,
+            targetHeight: cStatus.target_height
+        )
+    }
+    
+    /// Validate an Oxyra address
+    /// - Parameters:
+    ///   - address: Address to validate
+    ///   - testnet: Whether this is a testnet address
+    /// - Returns: True if address is valid
+    public func validateAddress(_ address: String, testnet: Bool = false) -> Bool {
+        return oxyra_address_valid(address, testnet)
+    }
+    
+    /// Convert amount to string representation
+    /// - Parameter amount: Amount in atomic units
+    /// - Returns: Formatted amount string
+    public func amountToString(_ amount: UInt64) -> String? {
+        guard let cString = oxyra_amount_to_string(amount) else { return nil }
+        let result = String(cString: cString)
+        return result
+    }
+    
+    /// Convert string to amount
+    /// - Parameter amountString: String representation of amount
+    /// - Returns: Amount in atomic units
+    public func stringToAmount(_ amountString: String) -> UInt64 {
+        return oxyra_string_to_amount(amountString)
     }
 }
 
-/// Configuration for Oxyra
-@objc public class OxyraConfig: NSObject {
-    @objc public var dataDir: String
-    @objc public var logLevel: Int
-    @objc public var testnet: Bool
+/// Configuration options for the Oxyra daemon
+public struct DaemonOptions {
+    public let rpcBindIP: String
+    public let rpcBindPort: UInt16
+    public let p2pBindIP: String
+    public let p2pBindPort: UInt16
+    public let restrictedRPC: Bool
     
-    @objc public init(dataDir: String, logLevel: Int = 0, testnet: Bool = false) {
-        self.dataDir = dataDir
-        self.logLevel = logLevel
-        self.testnet = testnet
-        super.init()
-    }
-}
-
-/// Daemon options for Oxyra
-@objc public class OxyraDaemonOptions: NSObject {
-    @objc public var rpcBindIP: String
-    @objc public var rpcBindPort: UInt16
-    @objc public var p2pBindIP: String
-    @objc public var p2pBindPort: UInt16
-    @objc public var restrictedRPC: Bool
-    
-    @objc public init(rpcBindIP: String = "127.0.0.1", 
-                     rpcBindPort: UInt16 = 18081,
-                     p2pBindIP: String = "0.0.0.0",
-                     p2pBindPort: UInt16 = 18080,
-                     restrictedRPC: Bool = true) {
+    public init(
+        rpcBindIP: String = "127.0.0.1",
+        rpcBindPort: UInt16 = 18081,
+        p2pBindIP: String = "0.0.0.0",
+        p2pBindPort: UInt16 = 18080,
+        restrictedRPC: Bool = false
+    ) {
         self.rpcBindIP = rpcBindIP
         self.rpcBindPort = rpcBindPort
         self.p2pBindIP = p2pBindIP
         self.p2pBindPort = p2pBindPort
         self.restrictedRPC = restrictedRPC
-        super.init()
-    }
-    
-    func toCOptions() -> oxyra_daemon_options_t {
-        var options = oxyra_daemon_options_t()
-        options.rpc_bind_ip = strdup(rpcBindIP)
-        options.rpc_bind_port = rpcBindPort
-        options.p2p_bind_ip = strdup(p2pBindIP)
-        options.p2p_bind_port = p2pBindPort
-        options.restricted_rpc = restrictedRPC
-        return options
     }
 }
 
-/// Daemon status information
-@objc public class OxyraDaemonStatus: NSObject {
-    @objc public var isRunning: Bool
-    @objc public var isSynchronized: Bool
-    @objc public var height: UInt64
-    @objc public var targetHeight: UInt64
-    
-    @objc public init(isRunning: Bool, isSynchronized: Bool, height: UInt64, targetHeight: UInt64) {
-        self.isRunning = isRunning
-        self.isSynchronized = isSynchronized
-        self.height = height
-        self.targetHeight = targetHeight
-        super.init()
-    }
-    
-    static func fromCStatus(_ status: oxyra_daemon_status_t) -> OxyraDaemonStatus {
-        return OxyraDaemonStatus(
-            isRunning: status.is_running,
-            isSynchronized: status.is_synchronized,
-            height: status.height,
-            targetHeight: status.target_height
-        )
-    }
+/// Status information about the Oxyra daemon
+public struct DaemonStatus {
+    public let isRunning: Bool
+    public let isSynchronized: Bool
+    public let height: UInt64
+    public let targetHeight: UInt64
 }
