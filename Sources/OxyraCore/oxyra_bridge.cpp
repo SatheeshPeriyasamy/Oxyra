@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <exception>
 #include <string.h>
+#include <memory>
+#include <string>
 
 // For now, we'll create minimal stubs for the Oxyra functionality
 // This allows the package to compile while we work on the full implementation

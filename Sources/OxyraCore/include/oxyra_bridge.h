@@ -10,6 +10,11 @@ extern "C" {
 #include <stddef.h>
 #include <stdlib.h>
 
+// Ensure size_t is available
+#ifndef size_t
+typedef unsigned long size_t;
+#endif
+
 // Daemon options structure
 typedef struct {
     char* rpc_bind_ip;
